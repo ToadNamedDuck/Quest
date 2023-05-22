@@ -49,7 +49,21 @@ namespace Quest
             //Needs an input field so the user can input whatever name they like.
             Console.WriteLine("What is your name?");
             string userName = Console.ReadLine();
-            Adventurer theAdventurer = new Adventurer(userName);
+                //Also need to intialize a robe object to assign to our wizard.
+            Robe robe = new Robe();
+                //Colors
+            List<string> robeColors = new List<string>();
+            robeColors.Add("Green");
+            robeColors.Add("Red");
+            robeColors.Add("White");
+            robe.Colors = robeColors;
+                //Assign a length (in inches) to the robe.
+            robe.Length = 116;
+
+            Adventurer theAdventurer = new Adventurer(userName, robe);
+
+            //Describe the adventurer to the player.
+            Console.WriteLine(theAdventurer.GetDescription());
 
             // A list of challenges for the Adventurer to complete
             // Note we can use the List class here because have the line "using System.Collections.Generic;" at the top of the file.

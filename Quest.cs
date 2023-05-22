@@ -36,6 +36,9 @@ namespace Quest
             // "Awesomeness" is like our Adventurer's current "score"
             // A higher Awesomeness is better
 
+            //Make a true valued bool for looping purposes.
+            bool keepPlaying = true;
+
             // Here we set some reasonable min and max values.
             //  If an Adventurer has an Awesomeness greater than the max, they are truly awesome
             //  If an Adventurer has an Awesomeness less than the min, they are terrible
@@ -60,9 +63,20 @@ namespace Quest
             };
 
             // Loop through all the challenges and subject the Adventurer to them
-            foreach (Challenge challenge in challenges)
+            while (keepPlaying)
             {
-                challenge.RunChallenge(theAdventurer);
+                foreach (Challenge challenge in challenges)
+                {
+                    challenge.RunChallenge(theAdventurer);
+                }
+                Console.WriteLine("Would you like to play again? Y/N");
+                if(Console.ReadLine().ToLower() == ("y")){
+                    keepPlaying = true;
+                }
+                else{
+                    //should break the loop.
+                    break;
+                }
             }
 
             // This code examines how Awesome the Adventurer is after completing the challenges

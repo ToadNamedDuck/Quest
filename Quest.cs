@@ -90,6 +90,9 @@ namespace Quest
             Random r = new Random();
             List<int> randomizedChallengeIndexes = new List<int>();
 
+                //keeping track of successful, conescutive playthroughs (score not equal to or less than 0)
+            int playthroughNumber = 0;
+
             // Loop through all the challenges and subject the Adventurer to them
             while (keepPlaying)
             {
@@ -109,6 +112,11 @@ namespace Quest
                         challenges[index].RunChallenge(theAdventurer);
                     }
                     adventPrize.ShowPrize(theAdventurer);
+                    if(theAdventurer.Awesomeness > 0)//adds points for the next playthrough.
+                    {
+                        playthroughNumber ++;
+                        theAdventurer.Awesomeness += playthroughNumber * 10;
+                    }
                     Console.WriteLine("Would you like to play again? Y/N");
                     if (Console.ReadLine().ToLower() == ("y"))
                     {

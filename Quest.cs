@@ -96,7 +96,9 @@ namespace Quest
             // Loop through all the challenges and subject the Adventurer to them
             while (keepPlaying)
             {
-                //testing moving the challenge randomization here to change it every time you press y.
+                //the points get added at the START of a playthrough, first is 0. then 10, 20, etc.
+                theAdventurer.Awesomeness += playthroughNumber * 10;
+                //moved the challenge randomization here to change it every time you press y.
                 for (int i = 0; i < challenges.Count - 2;)
                 {
                     int randomIndex = r.Next(0, challenges.Count - 1);
@@ -115,7 +117,6 @@ namespace Quest
                     if(theAdventurer.Awesomeness > 0)//adds points for the next playthrough.
                     {
                         playthroughNumber ++;
-                        theAdventurer.Awesomeness += playthroughNumber * 10;
                     }
                     Console.WriteLine("Would you like to play again? Y/N");
                     if (Console.ReadLine().ToLower() == ("y"))

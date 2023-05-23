@@ -32,6 +32,8 @@ namespace Quest
 ",
                 4, 20
             );
+            Challenge boatOrPlane = new Challenge("Do you prefer 1)ships or 2)planes?", 1, 30);
+            Challenge bowOrArrow = new Challenge("Would you rather have: 1)Bow or 2)Arrows.", 2, 10);
 
             // "Awesomeness" is like our Adventurer's current "score"
             // A higher Awesomeness is better
@@ -49,24 +51,24 @@ namespace Quest
             //Needs an input field so the user can input whatever name they like.
             Console.WriteLine("What is your name?");
             string userName = Console.ReadLine();
-                //Also need to intialize a robe object to assign to our wizard.
+            //Also need to intialize a robe object to assign to our wizard.
             Robe robe = new Robe();
-                //Colors
+            //Colors
             List<string> robeColors = new List<string>();
             robeColors.Add("Green");
             robeColors.Add("Red");
             robeColors.Add("White");
             robe.Colors = robeColors;
-                //Assign a length (in inches) to the robe.
+            //Assign a length (in inches) to the robe.
             robe.Length = 116;
 
-                //Creating his Hat
+            //Creating his Hat
             Hat hat = new Hat();
             hat.ShininessLevel = 1;
 
             Adventurer theAdventurer = new Adventurer(userName, robe, hat);
 
-                //Making the price for the adventurer. I'm thinking about hamburgers.
+            //Making the price for the adventurer. I'm thinking about hamburgers.
             Prize adventPrize = new Prize("You get a hamburger!");
 
             //Describe the adventurer to the player.
@@ -80,39 +82,59 @@ namespace Quest
                 theAnswer,
                 whatSecond,
                 guessRandom,
-                favoriteBeatle
+                favoriteBeatle,
+                boatOrPlane,
+                bowOrArrow
             };
+            //Randomizing challenges for each playthrough.
+            Random r = new Random();
+            List<int> randomizedChallengeIndexes = new List<int>();
 
             // Loop through all the challenges and subject the Adventurer to them
             while (keepPlaying)
             {
-                foreach (Challenge challenge in challenges)
+                //testing moving the challenge randomization here to change it every time you press y.
+                for (int i = 0; i < challenges.Count - 2;)
                 {
-                    challenge.RunChallenge(theAdventurer);
+                    int randomIndex = r.Next(0, challenges.Count - 1);
+                    if (!randomizedChallengeIndexes.Contains(randomIndex))
+                    {
+                        randomizedChallengeIndexes.Add(randomIndex);
+                        i++;
+                    }
                 }
-                adventPrize.ShowPrize(theAdventurer);
-                Console.WriteLine("Would you like to play again? Y/N");
-                if(Console.ReadLine().ToLower() == ("y")){
-                    keepPlaying = true;
+                {
+                    foreach (int index in randomizedChallengeIndexes) //changed to loop through the indexes we randomized.
+                    {
+                        challenges[index].RunChallenge(theAdventurer);
+                    }
+                    adventPrize.ShowPrize(theAdventurer);
+                    Console.WriteLine("Would you like to play again? Y/N");
+                    if (Console.ReadLine().ToLower() == ("y"))
+                    {
+                        randomizedChallengeIndexes = new List<int>();//Reset the random list.
+                        keepPlaying = true;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else{
-                    break;
-                }
-            }
 
-            // This code examines how Awesome the Adventurer is after completing the challenges
-            // And praises or humiliates them accordingly
-            if (theAdventurer.Awesomeness >= maxAwesomeness)
-            {
-                Console.WriteLine("YOU DID IT! You are truly awesome!");
-            }
-            else if (theAdventurer.Awesomeness <= minAwesomeness)
-            {
-                Console.WriteLine("Get out of my sight. Your lack of awesomeness offends me!");
-            }
-            else
-            {
-                Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
+                // This code examines how Awesome the Adventurer is after completing the challenges
+                // And praises or humiliates them accordingly
+                if (theAdventurer.Awesomeness >= maxAwesomeness)
+                {
+                    Console.WriteLine("YOU DID IT! You are truly awesome!");
+                }
+                else if (theAdventurer.Awesomeness <= minAwesomeness)
+                {
+                    Console.WriteLine("Get out of my sight. Your lack of awesomeness offends me!");
+                }
+                else
+                {
+                    Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
+                }
             }
         }
     }

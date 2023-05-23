@@ -60,7 +60,11 @@ namespace Quest
                 //Assign a length (in inches) to the robe.
             robe.Length = 116;
 
-            Adventurer theAdventurer = new Adventurer(userName, robe);
+                //Creating his Hat
+            Hat hat = new Hat();
+            hat.ShininessLevel = 1;
+
+            Adventurer theAdventurer = new Adventurer(userName, robe, hat);
 
             //Describe the adventurer to the player.
             Console.WriteLine(theAdventurer.GetDescription());

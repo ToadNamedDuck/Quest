@@ -66,6 +66,9 @@ namespace Quest
 
             Adventurer theAdventurer = new Adventurer(userName, robe, hat);
 
+                //Making the price for the adventurer. I'm thinking about hamburgers.
+            Prize adventPrize = new Prize("You get a hamburger!");
+
             //Describe the adventurer to the player.
             Console.WriteLine(theAdventurer.GetDescription());
 
@@ -87,12 +90,12 @@ namespace Quest
                 {
                     challenge.RunChallenge(theAdventurer);
                 }
+                adventPrize.ShowPrize(theAdventurer);
                 Console.WriteLine("Would you like to play again? Y/N");
                 if(Console.ReadLine().ToLower() == ("y")){
                     keepPlaying = true;
                 }
                 else{
-                    //should break the loop.
                     break;
                 }
             }
